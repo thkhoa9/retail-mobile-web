@@ -56,7 +56,7 @@ export default function Calendar() {
           </h2>
         </div>
         <div class="w-full overflow-x-auto">
-          <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
+          <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 :flex-none">
             <h1 class="text-base font-semibold leading-6 text-gray-900">
               {/* <time datetime="2022-01">January 2022</time> */}
             </h1>
@@ -108,29 +108,25 @@ export default function Calendar() {
           </header>
 
           <div class="shadow ring-1 ring-black ring-opacity-5 ">
-            <div class="grid grid-cols-7 w-full h-24  gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 ">
+            <div class="grid grid-cols-7 w-full h-20  gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 ">
               {daysOfWeek.map((day, index) => (
                 <div class="justify-center bg-white py-2 ">
-                  <div class="sr-only sm:not-sr-only">{dayNames[index]}</div>
-                  <h1 class="sr-only sm:not-sr-only">
+                  <div class="sr-only not-sr-only ml-1 mr-1">{dayNames[index]}</div>
+                  <h1 class="sr-only not-sr-only">
                     {day.format("DD/MM/YYYY")}
                   </h1>
                 </div>
               ))}
             </div>
             <div class="flex bg-gray-200 text-xs leading-6 text-gray-700 ">
-              <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
-                {/*
-                    Always include: "relative py-2 px-3"
-                    Is current month, include: "bg-white"
-                    Is not current month, include: "bg-white text-gray-500"
-                    */}
+              <div class="w-full grid grid-cols-7 grid-rows-3 gap-px">
+                
                 {daysOfWeek.map((day, index) => (
                   <div
                     key={index}
-                    class="w-40 relative bg-white px-3 py-2 text-gray-500 "
+                    class=" relative bg-white px-3 py-2 text-gray-500 "
                     style={{
-                      height: "calc(100vh - 20px)",
+                      height: "calc(100vh - 220px)",
                     }}
                   >
                     {/*
