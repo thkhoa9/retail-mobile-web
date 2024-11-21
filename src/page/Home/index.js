@@ -43,6 +43,7 @@ export default function Home() {
           <div className="font-bold ml-2">Chức năng</div>
           <div className="flex w-full h-14 justify-center mt-4 gap-7">
             <div className="w-20 flex  ">
+              <Link to="/calendar">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -60,9 +61,10 @@ export default function Home() {
                 </svg>
                 <div className="">Xem lịch</div>
               </div>
+              </Link>
             </div>
             <div className="w-20 flex ">
-              <Link to="/barcodeScan">
+              <Link to="/barcodeScanner">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +98,7 @@ export default function Home() {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-8 ml-5 bg-green-400 rounded-lg text-white"
+                  class="size-8 ml-5 bg-green-500 rounded-lg text-white"
                 >
                   <path
                     stroke-linecap="round"
