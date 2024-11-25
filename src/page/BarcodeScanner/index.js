@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 const BarcodeScanner = () => {
   const [barcode, setBarcode] = useState(null);
   const [isScanning, setIsScanning] = useState(true);
+  const [inputString, setInputString] = useState(barcode ? barcode : "");
 
   // Hàm này được gọi khi quét thành công mã vạch
   const handleScan = (data) => {
     if (data) {
-      setBarcode(data.text); // Lưu mã vạch vừa quét vào state
-      setIsScanning(false); // Dừng quét sau khi quét thành công
+    setBarcode(data.text); // Lưu mã vạch vừa quét vào state barcode
+    setInputString(data.text); // Cập nhật state inputString với giá trị mã vạch vừa quét
+    setIsScanning(false); // Dừng quét sau khi quét thành công
     }
   };
 
@@ -28,6 +30,28 @@ const BarcodeScanner = () => {
     }
   }, [isScanning, barcode]);
 
+  const splitString = (str) => {
+    // Dùng phương thức split để tách chuỗi theo dấu '-'
+    const [MaSP, MaPhieu, HSD] = str.split('-');
+    return { MaSP, MaPhieu, HSD };
+  };
+
+  // Tách chuỗi và gán vào các biến
+  const { MaSP, MaPhieu, HSD } = inputString ? splitString(inputString) : {};
+
+// Chuyển HSD trong barcode thành định dạng DD/MM/YYYY
+const formatDate = (dateStr) => {
+  // Extract year, month, day from the string (assumes 'YYMMDD' format)
+  const year = `20${dateStr.slice(4, 6)}`;  // Assuming the year starts with '20'
+  const month = dateStr.slice(2, 4);
+  const day = dateStr.slice(0, 2);
+
+  // Format as DD/MM/YYYY
+  return `${day}/${month}/${year}`;
+};
+
+const formattedExpirationDate = HSD && HSD.length === 6 ? formatDate(HSD) : "N/A";
+
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-4">
       <Link to="/">
@@ -38,7 +62,7 @@ const BarcodeScanner = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="size-6 "
+            className="size-6 "
           >
             <path
               stroke-linecap="round"
@@ -84,22 +108,22 @@ const BarcodeScanner = () => {
               </div>
               <div className="w-2/3 ml-1">
                 <h1 className="font-bold text-lg flex mt-2">
-                  Mã SP: <h1>001</h1>
+                  Mã SP: <h1 className="ml-1">{MaSP}</h1>
                 </h1>
                 <h1 className="font-bold text-lg flex mt-2">
-                  Mã Phiếu: <h1>0231241</h1>
+                  Mã Phiếu: <h1 className="ml-1">{MaPhieu}</h1>
                 </h1>
                 <h1 className="font-bold text-lg flex mt-2">
-                  Tên SP: <h1>Nước ngọt Pepsi...</h1>
+                  Tên SP: <h1 className="ml-1">Nước ngọt Pepsi...</h1>
                 </h1>
                 <h1 className="font-bold text-lg flex mt-2">
-                  Số lượng SP trong kho: <h1>70</h1>
+                  Số lượng SP trong kho: <h1 className="ml-1">70</h1>
                 </h1>
                 <h1 className="font-bold text-lg flex mt-2">
-                  Nhà cung cấp: <h1>PepsiCo</h1>
+                  Nhà cung cấp: <h1 className="ml-1">PepsiCo</h1>
                 </h1>
                 <h1 className="font-bold text-lg flex mt-2">
-                  Hạn sử dụng: <h1 className="font-bold text-lg">21/11/2024</h1>
+                  Hạn sử dụng: <h1 className="font-bold text-lg ml-1">{formattedExpirationDate}</h1>
                 </h1>
               </div>
             </div>
